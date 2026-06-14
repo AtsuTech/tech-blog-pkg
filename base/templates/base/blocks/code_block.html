@@ -1,0 +1,13 @@
+<div class="overflow-hidden rounded-lg">
+
+    <div class="flex items-center bg-gray-900 px-4 h-10">
+        <span class="text-xs font-medium uppercase text-gray-300">
+            {{ self.language }}
+        </span>
+    </div>
+
+    <pre class="mt-[-26px]">
+    <code class="overflow-hidden rounded-b-lg language-{{ self.language }}">{{ self.code }}</code>
+    </pre>
+
+</div>

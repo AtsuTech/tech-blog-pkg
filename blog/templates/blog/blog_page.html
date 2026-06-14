@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+    <main class="max-w-4xl mx-auto p-4">
+        <p><a href="{{ page.get_parent.url }}">← 戻る</a></p>
+
+        <h1>{{ page.title }}</h1>
+        <p class="meta">{{ page.date }}</p>
+
+        <div class="intro">{{ page.intro }}</div>
+
+        {{ page.body|richtext }}
+
+        <div class="no-tailwind-styles">
+            {% for block in page.content %}
+                {{ block }}
+            {% endfor %}
+        </div>        
+    </main>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load navigation_tags %}
+
+<header class="border-b bg-gray-50">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+
+        <a href="/" class="text-xl font-bold">
+            {% get_blog_title_text %}
+        </a>
+
+        <nav>
+            <ul class="flex gap-6 text-sm font-medium">
+                <li>
+                    <a href="/blog/" class="hover:text-blue-600">
+                        Blog
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/about/" class="hover:text-blue-600">
+                        About
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/contact/" class="hover:text-blue-600">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
