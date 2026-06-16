@@ -2,6 +2,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 
 from wagtail.models import Page
+from blog.models import BlogPage #ブログのモデル
 
 # To enable logging of search queries for use with the "Promoted search results" module
 # <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
@@ -17,7 +18,17 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        #search_results = Page.objects.live().search(search_query)
+
+        #含み検索
+        search_results = BlogPage.objects.live().filter(
+            title__icontains=search_query
+        )
+
+        #含み検索
+        # search_results = Page.objects.live().filter(
+        #     title__icontains=search_query
+        # )
 
         # To log this query for use with the "Promoted search results" module:
 

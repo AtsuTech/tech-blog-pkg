@@ -47,29 +47,7 @@ Delete the line below if you're just getting started and want to remove the welc
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 h-[800px]">
 
                 {% for post in latest_posts %}
-
-                    <article
-                        class="overflow-hidden rounded-xl h-[200px] border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-                    >
-
-                        <div class="mb-3 text-sm text-gray-500">
-                            {{ post.first_published_at|date:"Y-m-d" }}
-                        </div>
-
-                        <h3 class="mb-3 text-xl font-bold text-gray-900">
-                            <a href="{{ post.url }}" class="hover:text-blue-600">
-                                {{ post.title }}
-                            </a>
-                        </h3>
-
-                        {% if post.summary %}
-                            <p class="line-clamp-3 text-gray-600">
-                                {{ post.summary }}
-                            </p>
-                        {% endif %}
-
-                    </article>
-
+                    {% include "components/post_card.html" with post=post %}
                 {% empty %}
 
                     <div class="rounded-lg border bg-white p-8 text-center">

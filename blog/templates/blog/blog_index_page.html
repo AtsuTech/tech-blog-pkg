@@ -7,16 +7,12 @@
 {% block content %}
     <h1>{{ page.title }}</h1>
 
-    {% comment %} <div class="intro">{{ page.intro|richtext }}</div> {% endcomment %}
-
-    {% comment %} {% for post in page.get_children %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        {{ post.specific.intro }}
-        {{ post.specific.body|richtext }}
-    {% endfor %} {% endcomment %}
-
     {% for post in page.get_children %}
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {% include "components/post_card.html" with post=post %}
+    {% empty %}
+        <div class="rounded-lg border bg-white p-8 text-center">
+            記事がありません
+        </div>
     {% endfor %}
 
 {% endblock %}

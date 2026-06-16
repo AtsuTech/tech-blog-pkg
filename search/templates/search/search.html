@@ -6,33 +6,58 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-<h1>Search</h1>
 
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
+<main class="pb-4 min-h-screen">
 
-{% if search_results %}
-<ul>
-    {% for result in search_results %}
-    <li>
-        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-        {% if result.search_description %}
-        {{ result.search_description }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+    <div class="/flex /items-center /h-[160px]">
+        <div class="w-full">
+            <h1 class="text-2xl py-4 text-mist-800">記事を探す</h1>    
+            <form action="{% url 'search' %}" method="get" class="flex gap-2">
+                <input
+                    type="text"
+                    name="query"
+                    {% if search_query %}value="{{ search_query }}"{% endif %}
+                    placeholder="検索..."
+                    class="w-full h-[40px] rounded-lg border border-gray-200 px-4 py-2 focus:border-blue-500 focus:outline-none"
+                >
 
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
+                <button
+                    type="submit"
+                    class="rounded-lg bg-gray-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+                </button>
+            </form>            
+        </div>
+    </div>
+    
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
-{% elif search_query %}
-No results found
-{% endif %}
+
+
+    {% if search_results %}
+        <ul class="py-5">
+            <div class="bg-gray-200 rounded-full px-2 w-fit mb-4 text-[14px]">検索結果 <b>{{ search_results|length }}</b> 件</div>
+            {% for result in search_results %}
+            <li>
+                {% include "components/post_card.html" with post=result %}
+                {% comment %} <h4><a href="{% pageurl result %}">{{ result }}</a></h4> {% endcomment %}
+                {% comment %} {% if result.search_description %}
+                {{ result.search_description }}
+                {% endif %} {% endcomment %}
+            </li>
+            {% endfor %}
+        </ul>
+
+    {% if search_results.has_previous %}
+        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% if search_results.has_next %}
+        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+    {% endif %}
+    {% elif search_query %}
+        記事が見つかりませんでした
+    {% endif %}
+
+</main>
 {% endblock %}
