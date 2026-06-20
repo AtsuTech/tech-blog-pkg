@@ -7,7 +7,8 @@
 {% block content %}
     <h1>{{ page.title }}</h1>
 
-    {% for post in page.get_children %}
+    {% comment %} {% for post in page.get_children %} {% endcomment %}
+    {% for post in blog_entries %}
         {% include "components/post_card.html" with post=post %}
     {% empty %}
         <div class="rounded-lg border bg-white p-8 text-center">

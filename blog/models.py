@@ -42,15 +42,10 @@ class Category(models.Model):
 
 
 # ----------------------------
-# Blog Tags
+# Blog Tag を検索表示
 # ----------------------------
 class BlogPageTag(TaggedItemBase):
-    content_object = ParentalKey(
-        "blog.BlogPage",
-        related_name="tagged_items",
-        on_delete=models.CASCADE,
-    )
-
+    content_object = ParentalKey('blog.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
 
 
 # ----------------------------
@@ -84,8 +79,28 @@ class BlogIndexPage(Page):
     subpage_types = ["blog.BlogPage"]
     max_count = 1
 
+    # -----タグに紐づくブログ記事を検索-------
+    def get_context(self,request):
+        context = super().get_context(request)
+
+        #
+        blog_entries = BlogPage.objects.child_of(self).live()
+
+        tag = request.GET.get('tag')
+        
+
+        if tag:
+            blog_entries = blog_entries.filter(tags__name=tag)
+            print("tag:", tag)
+            print("after filter:", blog_entries.count())  # ← これを追加
+
+        context['blog_entries'] = blog_entries
+        return context
+
     class Meta:
         verbose_name = "Blog Index"
+
+
 
 
 # ----------------------------
@@ -176,11 +191,6 @@ class BlogPage(Page):
     view_count = models.PositiveIntegerField(
         default=0
     )
-
-    # reading_time = models.PositiveIntegerField(
-    #     default=1,
-    #     help_text="読了時間（分）"
-    # )
 
     content_panels = Page.content_panels + [
         FieldPanel("summary"),

@@ -43,7 +43,7 @@ class BlogTitleText(
     title_text =  models.TextField(
         max_length=300,
         blank=True,
-        help_text="記事一覧で表示する概要"
+        help_text="ブログタイトルのテキスト(例:マイブログ)"
     )
 
 

@@ -12,7 +12,7 @@ def get_blog_title_text(context):
 
     if not blog_title_text:
         instance = BlogTitleText.objects.filter(live=True).first()
-        blog_title_text = instance.body if instance else "My Blog"
+        blog_title_text = instance.title_text if instance else "My Blog"
 
     return {
         "blog_title_text": blog_title_text,
