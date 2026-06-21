@@ -1,5 +1,8 @@
 Django>=5.2,<5.3
 wagtail>=7.2,<7.3
 
+#マークダウンライブリ
+wagtail-markdown==0.8.0
+
 #Rendar
 gunicorn==23.0.0 

@@ -14,7 +14,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from wagtailmarkdown.blocks import MarkdownBlock
+from wagtailmarkdown.blocks import MarkdownBlock #wagtail-markdown
 from base.bases import CodeBlock,HeadingBlock #自作の見出しブロック
 
 
