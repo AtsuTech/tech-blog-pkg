@@ -22,11 +22,21 @@ class HomePage(Page):
         default="Web開発・個人開発・技術学習について発信します"
     )
 
+    #画像
+    hero_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+"
+    )
+
     intro = RichTextField(
         blank=True
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel("hero_image"),
         FieldPanel("hero_title"),
         FieldPanel("hero_subtitle"),
         FieldPanel("intro"),
