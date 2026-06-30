@@ -41,6 +41,7 @@
             {{ page.title }}
         </h1>
 
+        {% comment %} タグ {% endcomment %}
         <div class="flex space-x-1 py-3">
             {% for tag in page.tags.all %}
                 <a href="{% pageurl page.get_parent %}?tag={{ tag }}" class="block bg-gray-200 p-1 rounded-sm text-[10px]">
@@ -50,7 +51,31 @@
         </div>
 
 
-        <div class="mx-auto flex max-w-7xl gap-8">
+        <div class="mx-auto md:flex flex-row max-w-7xl gap-8 px-2 md:px-0">
+
+            {% comment %} スマホ目次 {% endcomment %}
+            <div class="mb-6 lg:hidden">
+                <details class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+                    <summary class="cursor-pointer bg-gray-100 px-4 py-3 font-bold">
+                        📚 目次を表示
+                    </summary>
+        
+                    <div class="p-4">
+                        {% for block in page.content %}
+                            {% if block.block_type == "heading" %}
+                            <a
+                            href="#{{ block.value.size }}"
+                            class="mb-2 block text-sm text-gray-600 hover:text-blue-600"
+                        >
+                            {{ block.value.heading_text }}
+                        </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </details>
+            </div>
+
+            {% comment %} 記事 {% endcomment %}
             <main class="min-w-0 flex-1">
                 <div class="no-tailwind-styles">
                     {% for block in page.content %}
@@ -59,7 +84,8 @@
                 </div>
             </main>
         
-            <aside class="sticky top-5 self-start w-64 shrink-0">
+            {% comment %} PC目次 {% endcomment %}
+            <aside class="sticky top-5 self-start w-64 shrink-0 hidden md:block">
                 <div class="rounded-lg bg-gray-200 p-4">
                     <h2 class="mb-4 font-bold text-center">目次</h2>
         
@@ -75,7 +101,9 @@
                     {% endfor %}
                 </div>
             </aside>
+
         </div>
 
-    </main>
+    </main> 
+
 {% endblock %}
